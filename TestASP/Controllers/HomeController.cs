@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TestASP.Models;
+using TestASP.Models.Base;
+using TestASP.Models.Repositories;
 
 namespace TestASP.Controllers
 {
@@ -20,6 +22,10 @@ namespace TestASP.Controllers
 
         public IActionResult Index()
         {
+            using (AuthInfoRepository repository = new AuthInfoRepository())
+            {
+                repository.Insert(new AuthInfo() { AuthInfo_Time = DateTime.Now.ToShortTimeString(), AuthInfo_Date = DateTime.Now.ToShortDateString() });
+            }
             return View();
         }
 
